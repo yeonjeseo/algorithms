@@ -6,6 +6,4 @@
 // console.log(`${moneyPerPerson}
 // ${left}`);
 
-const arr = new Array(20);
-arr.fill(true);
-console.log(arr);
+console.log([[3], [4]].map((el) => [2, ...el]));

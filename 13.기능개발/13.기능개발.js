@@ -24,7 +24,6 @@ function solution(progresses, speeds) {
     }
   }
   answer.push(count);
-
   return answer;
 }
 
