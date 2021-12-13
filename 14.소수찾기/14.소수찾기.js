@@ -1,14 +1,44 @@
-// numbers 문자열을 split()으로 쪼개 배열(splitArr)로 만든다.
-// 순열을 사용해 가능한 모든 경우의 수를 구한다.(getPermutations()) 순열을 사용하는 이유는 0과 1을 뽑는 것과 1과 0을 뽑는 것은 다르기 때문이다. (numbers의 숫자가 "011"이라면 이중에서 1개, 2개, 3개를 뽑아 조합가능한 모든 경우를 구한다.)
-// 조합가능한 경우(ex.["0", "1"])를 join()으로 이어붙이고("01") 숫자로 바꾼다.(1이됨) 이를 배열(candiArr)에 추가한다.
-// 조합가능한 경우가 담긴 배열(candiArr)을 Set(candiSet)으로 만들어 중복을 제거한다.
-// Set(candiSet)에서 하나씩 꺼내며 소수인지 검사하고 소수인 경우 answer값을 증가시킨다.
-
-const inputs = ["011", "17"];
-
 function solution(numbers) {
-  const splitArr = numbers.split("");
-  console.log(splitArr);
+  const arr = numbers.split("");
+  const conditions = [];
+  let count = 0;
+
+  for (let i = 1; i < numbers.length + 1; i++) {
+    conditions.push(
+      ...getPermutations(arr, i).map((element) => Number(element.join("")))
+    );
+  }
+  const sets = new Set(conditions);
+  console.log([...sets]);
+  sets.forEach((element) => {
+    if (isPrime(element)) count++;
+  });
+
+  return count;
 }
 
-solution(inputs[0]);
+function isPrime(number) {
+  for (let i = 2; i < number; i++) {
+    if (number % i == 0) return false;
+  }
+  return number > 1;
+}
+
+const getPermutations = function (arr, selectNumber) {
+  const results = [];
+  if (selectNumber === 1) return arr.map((el) => [el]);
+  // n개중에서 1개 선택할 때(nP1), 바로 모든 배열의 원소 return. 1개선택이므로 순서가 의미없음.
+
+  arr.forEach((fixed, index, origin) => {
+    const rest = [...origin.slice(0, index), ...origin.slice(index + 1)];
+    // 해당하는 fixed를 제외한 나머지 배열
+    const permutations = getPermutations(rest, selectNumber - 1);
+    // 나머지에 대해서 순열을 구한다.
+    const attached = permutations.map((el) => [fixed, ...el]);
+    //  돌아온 순열에 떼 놓은(fixed) 값 붙이기
+    results.push(...attached);
+    // 배열 spread syntax 로 모두다 push
+  });
+
+  return results; // 결과 담긴 results return
+};
