@@ -19,18 +19,19 @@ citations	return
 ※ 공지 - 2019년 2월 28일 테스트 케이스가 추가되었습니다.
 */
 
-const inputs = [3, 0, 6, 1, 5];
+// const inputs = [3, 0, 6, 1, 5];
+const inputs = [7];
 
 function solution(citations) {
-  // 내림차순 정렬
   let answer = 0;
+
   citations
     .sort((a, b) => b - a)
     .some((element, i) => {
-      if (i + 1 >= element) {
-        answer = element;
+      if (i + 1 > element) {
+        answer = i;
         return true;
-      }
+      } else answer = citations.length;
     });
 
   return answer;
