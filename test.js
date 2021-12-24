@@ -1,9 +1,15 @@
-// const [a, b] = require("fs").readFileSync("input.txt").toString().split(" ");
-// const money = BigInt(a),
-//   people = BigInt(b);
-// const moneyPerPerson = money / people;
-// const left = money - moneyPerPerson * people;
-// console.log(`${moneyPerPerson}
-// ${left}`);
+const arr = [false, false, true, false, true, false];
 
-console.log([[3], [4]].map((el) => [2, ...el]));
+console.log(
+  arr.some((element, index) => {
+    console.log(element, index);
+    return element;
+  })
+);
+
+console.log(
+  arr.some(function callback(element, index) {
+    console.log(element, index);
+    return element;
+  })
+);
