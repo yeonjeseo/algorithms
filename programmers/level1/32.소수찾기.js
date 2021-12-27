@@ -1,15 +1,19 @@
-// 1트
 function solution(n) {
-  let count = 1;
-
-  for (let i = 2; i <= n; i++) {
-    for (let j = 2; j < i; j++) {
-      //2 ~ 자기자신 - 1 사이중 나누어떨어지면 소수가 아니므로 다 돌 필요 없음
-      if (i % j === 0) break;
-      if (j === i - 1) count++;
+  //에라토스테네스의 체
+  // 인덱스를 숫자로 활용한다.
+  // 일단 0 1을 제외한 모든 숫자를 소수라 가정한다
+  const arr = new Array(n + 1).fill(true);
+  arr[0] = arr[1] = false;
+  for (let i = 2; i * i < arr.length; i++) {
+    //현재 인덱스 요소가 true일 때만
+    if (arr[i]) {
+      // 해당 인덱스를 제외한 배수들을 모두 false로 바꾼다
+      // i = 3 => 6, 9, 12 .... : false
+      for (let j = i * i; j <= arr.length; j += i) {
+        arr[j] = false;
+      }
     }
   }
-  return count;
-}
 
-//2트 : 에라토스테네스의 체
+  return arr.filter((element) => element).length;
+}
