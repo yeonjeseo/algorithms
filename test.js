@@ -1,15 +1,3 @@
-const arr = [false, false, true, false, true, false];
+const arr = [1, 2, 3, 4, 5, 6, 7];
 
-console.log(
-  arr.some((element, index) => {
-    console.log(element, index);
-    return element;
-  })
-);
-
-console.log(
-  arr.some(function callback(element, index) {
-    console.log(element, index);
-    return element;
-  })
-);
+console.log(arr.sort((a, b) => a < b));
